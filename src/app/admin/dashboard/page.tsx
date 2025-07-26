@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useRequireAdminAuth } from '../../_components/UnifiedAuthContext';
 
 export default function AdminDashboard() {
-  const { user, isLoading, hasAccess, shouldRedirect } = useRequireAdminAuth();
+  const { isLoading, hasAccess, shouldRedirect } = useRequireAdminAuth();
   const router = useRouter();
 
   useEffect(() => {

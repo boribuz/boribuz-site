@@ -114,7 +114,7 @@ const userGuide: GuideSection[] = [
 ];
 
 export default function HelpPage() {
-  const { user, isLoading, hasAccess, shouldRedirect } = useRequireAdminAuth();
+  const { isLoading, hasAccess, shouldRedirect } = useRequireAdminAuth();
   const [activeSection, setActiveSection] = useState('getting-started');
   const [searchTerm, setSearchTerm] = useState('');
 

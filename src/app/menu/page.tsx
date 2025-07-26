@@ -57,8 +57,8 @@ export default function MenuPage() {
           // Use admin-created categories if available, otherwise fall back to menu item categories
           if (adminResult.success && adminResult.data.categories && adminResult.data.categories.length > 0) {
             const categoryNames = adminResult.data.categories
-              .sort((a: any, b: any) => a.order - b.order)
-              .map((cat: any) => cat.name);
+              .sort((a: { order: number }, b: { order: number }) => a.order - b.order)
+              .map((cat: { name: string }) => cat.name);
             setCategories(['all', ...categoryNames]);
           } else {
             // Extract unique categories from menu items as fallback
