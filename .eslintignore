@@ -1,0 +1,12 @@
+# Generated files
+src/generated/
+.next/
+node_modules/
+
+# Build outputs
+*.min.js
+dist/
+build/
+
+# Logs
+*.log

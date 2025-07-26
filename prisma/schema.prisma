@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model MenuItem {
+  id                Int      @id @default(autoincrement())
+  itemId            String?  @unique
+  name              String
+  description       String
+  price             Float
+  image             String?
+  imageUrl          String?  // New field for storing image URLs
+  category          String
+  available         Boolean  @default(true)
+  featured          Boolean  @default(false)
+  
+  // Additional nutritional and dietary information
+  ingredients       String?  // JSON array as string
+  allergens         String?  // JSON array as string
+  calories          Int?
+  protein           Float?
+  carbs             Float?
+  fat               Float?
+  preparationTime   String?
+  spiceLevel        String?  // Mild, Medium, Hot, Very Hot
+  isVegetarian      Boolean  @default(false)
+  isVegan           Boolean  @default(false)
+  isGlutenFree      Boolean  @default(false)
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  items         Json
+  customerName  String
+  customerPhone String
+  customerEmail String?
+  notes         String?
+  status        String   @default("pending")
+  createdAt     DateTime @default(now())
+  userId        Int?
+  user          User?    @relation(fields: [userId], references: [id])
+}
+
+model AdminUser {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password      String
+  name          String
+  emailVerified Boolean  @default(false)
+  verificationCode String?
+  verificationCodeExpires DateTime?
+  passwordResetToken String?
+  passwordResetExpires DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  orders        Order[]
+}
+
+model MenuCategory {
+  id          Int    @id @default(autoincrement())
+  categoryId  String @unique
+  name        String
+  description String
+  order       Int
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

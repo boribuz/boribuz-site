@@ -1,0 +1,87 @@
+# Render.com Deployment Guide - Template
+
+## Pre-deployment Checklist ✅
+
+The codebase has been cleaned and prepared for production:
+
+- ✅ Removed all test files and development scripts
+- ✅ Cleaned up console.log statements (kept error logging)
+- ✅ Updated build scripts for production
+- ✅ Created production-ready README
+- ✅ Updated .gitignore for production
+- ✅ Build tested successfully
+
+## Render.com Setup
+
+### 1. Create New Web Service
+
+1. Connect your GitHub repository to Render.com
+2. Choose "Web Service"
+3. Select your repository
+
+### 2. Build Settings
+
+- **Build Command:** `npm run build`
+- **Start Command:** `npm start`
+- **Node Version:** 18 or higher
+
+### 3. Environment Variables
+
+Set these environment variables in Render.com dashboard:
+
+```
+DATABASE_URL=your_postgresql_url_from_render
+JWT_SECRET=your-secure-jwt-secret-key
+SMTP_HOST=your_smtp_host
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your_email@domain.com
+SMTP_PASS=your_email_app_password
+ADMIN_EMAIL=your_admin@domain.com
+ADMIN_NAME=Your Restaurant Name
+NEXTAUTH_URL=https://your-app-name.onrender.com
+NEXTAUTH_SECRET=your-secure-nextauth-secret
+CLOVER_API_URL=https://api.clover.com
+CLOVER_MERCHANT_ID=your-clover-merchant-id
+CLOVER_ACCESS_TOKEN=your-clover-access-token
+CLOVER_APP_ID=your-clover-app-id
+```
+
+### 4. Database Setup
+
+1. Create a PostgreSQL database on Render.com
+2. Copy the database URL to `DATABASE_URL` environment variable
+3. The build process will automatically run migrations
+
+### 5. Post-Deployment
+
+1. Visit your deployed app at `https://your-app-name.onrender.com`
+2. Go to `/admin` to access the admin panel
+3. Login with your admin credentials
+4. **IMPORTANT:** Change the admin password immediately after first login!
+5. Start adding your menu items
+
+## Features Available
+
+- **Public Menu:** Customers can browse menu items
+- **Admin Panel:** Manage menu items and categories only
+- **Database:** All changes persist in PostgreSQL
+- **Email:** Order confirmations and notifications (if configured)
+
+## Admin Panel Access
+
+- URL: `https://your-domain.com/admin`
+- Only menu management is available
+- All other site content is static
+- Changes are immediately reflected on the public menu
+
+## Security Notes
+
+- Admin passwords are hashed with bcrypt
+- JWT tokens for secure authentication
+- Email verification system in place
+- HTTPS enforced in production
+
+---
+
+Your restaurant website is ready for deployment! 🚀
